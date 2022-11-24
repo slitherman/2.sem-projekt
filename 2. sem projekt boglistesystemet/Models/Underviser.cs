@@ -13,14 +13,14 @@ namespace _2._sem_projekt_boglistesystemet.Models.BookData
         [StringLength(100)]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
-        [Required]
+      
         [StringLength(10)]
         [DisplayName("Initials")]
         [DisplayFormat(NullDisplayText = "No Initials")]
-        public string Initials { get; set; }
+        public string? Initials { get; set; }
         [Required]
         public int Id { get; set; }
         public ICollection<Fag> Fag { get; set; }
-        ICollection<Books> Books { get; set; }
+        public ICollection<Books> Books { get; set; }
     }
 }

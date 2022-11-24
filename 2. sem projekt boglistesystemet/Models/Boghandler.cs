@@ -17,6 +17,10 @@ namespace _2._sem_projekt_boglistesystemet.Models
         public int PostalCode { get; set; }
         [Required]
         public int Id { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        [PasswordPropertyText(true)]
+        public int password { get; set; }
         public ICollection<Books> Books {get; set; }   
     }
 }

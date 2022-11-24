@@ -9,8 +9,7 @@ namespace BoglisteSystemTestEnvironment
     {
         
 
-      
-
+     
      
         [SetUp]
         public void Setup()

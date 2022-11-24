@@ -17,9 +17,9 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [Required]
         [StringLength(50)]
         public string Author { get; set; }
-        [Required]
+       
         [Range(0,1000)]
-        public int ISBN { get; set; }
+        public int? ISBN { get; set; }
         public Boghandler BookStore;
 
       
