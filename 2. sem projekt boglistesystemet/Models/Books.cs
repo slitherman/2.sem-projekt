@@ -19,8 +19,14 @@ namespace _2._sem_projekt_boglistesystemet.Models
         public string Author { get; set; }
        
         [Range(0,1000)]
-        public int? ISBN { get; set; }
+        public int ISBN { get; set; }
         public Boghandler BookStore;
+        public ICollection<Fag> Fag { get; set; }
+
+        public Books(int isbn )
+        {
+            ISBN = isbn;
+        }
 
       
     }

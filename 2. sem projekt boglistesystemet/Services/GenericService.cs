@@ -9,8 +9,11 @@ namespace _2._sem_projekt_boglistesystemet.Services
     public class GenericService<T> : IGenericInterface<T> where T : class, new()
 
     {
-       
 
+        public GenericService(BookstoreDbContext Context )
+        {
+            GContext = Context;
+        }
       
         public BookstoreDbContext GContext { get; set; }
 
