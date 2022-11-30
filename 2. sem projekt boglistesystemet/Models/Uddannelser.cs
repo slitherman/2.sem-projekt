@@ -12,7 +12,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [DisplayName("First Name")]
         public string Name { get; set; }
         [Required]
-        public int Id { get; set; }
+        [Key]
+        public int UddannelseId { get; set; }
         public ICollection<Semestre> semestres { get; set; }
     }
 }

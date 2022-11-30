@@ -1,3 +1,7 @@
+using _2._sem_projekt_boglistesystemet.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 namespace _2._sem_projekt_boglistesystemet
 {
     public class Program
@@ -6,8 +10,13 @@ namespace _2._sem_projekt_boglistesystemet
         {
             var builder = WebApplication.CreateBuilder(args);
 
+           
+
             // Add services to the container.
+            // adding the database connectionstring
             builder.Services.AddRazorPages();
+            builder.Services.AddDbContext<BookstoreDbContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BookStoreDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+
 
             var app = builder.Build();
 

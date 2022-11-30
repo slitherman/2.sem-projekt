@@ -19,7 +19,8 @@ namespace _2._sem_projekt_boglistesystemet.Models.BookData
         [DisplayFormat(NullDisplayText = "No Initials")]
         public string? Initials { get; set; }
         [Required]
-        public int Id { get; set; }
+        [Key]
+        public int UnderviserId { get; set; }
         public ICollection<Fag> Fag { get; set; }
         public ICollection<Books> Books { get; set; }
     }

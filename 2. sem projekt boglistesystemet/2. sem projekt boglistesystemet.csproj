@@ -5,6 +5,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>_2._sem_projekt_boglistesystemet</RootNamespace>
+    <StartupObject>_2._sem_projekt_boglistesystemet.Program</StartupObject>
+    <UserSecretsId>6c8d456b-d6da-45de-bb1e-f28bbeec77ab</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

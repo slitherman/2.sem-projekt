@@ -10,7 +10,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [DisplayName("Class Name")]
         public string Name { get; set; }
         [Required]
-        public int Id { get; set; }
+        [Key]
+        public int HoldId { get; set; }
         public ICollection<Semestre> semestre { get; set; }
 
 

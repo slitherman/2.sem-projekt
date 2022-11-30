@@ -16,7 +16,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [DisplayName("Postal Code")]
         public int PostalCode { get; set; }
         [Required]
-        public int Id { get; set; }
+        [Key]
+        public int BoghandlerId { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [PasswordPropertyText(true)]

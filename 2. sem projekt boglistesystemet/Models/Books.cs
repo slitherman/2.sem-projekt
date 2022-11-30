@@ -7,7 +7,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [Required]
         [MinLength(1), MaxLength(30)]
         [Range(0,1000)]
-        public int Id { get; set; }
+        [Key]
+        public int BogId { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }

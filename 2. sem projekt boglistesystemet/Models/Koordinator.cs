@@ -8,7 +8,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
     {
 
         [Required]
-        public int Id { get; set; }
+        [Key]
+        public int KoordinatorId { get; set; }
         [Required]
 
         [PasswordPropertyText(true)]

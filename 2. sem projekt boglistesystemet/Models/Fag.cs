@@ -6,8 +6,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
     public class Fag
     {
         [Required]
-      
-        public int Id { get; set; }
+        [Key]
+        public int FagId { get; set; }
 
         [Required]
         [StringLength(50)]
