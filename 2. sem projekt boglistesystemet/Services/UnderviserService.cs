@@ -10,38 +10,48 @@ namespace _2._sem_projekt_boglistesystemet.Services
     {
         public BookstoreDbContext Context { get; set; }
 
-        public UnderviserService (BookstoreDbContext context) :base(context)
+        public UnderviserService(BookstoreDbContext context) : base(context)
         {
-            Context = context;  
+            Context = context;
         }
-
-        public async Task AddBookReference(int ISBN)
+        /// <summary>
+        /// ???
+        /// </summary>
+        /// <param name="ISBN"></param>
+        /// <returns></returns>
+        /// UNTESTED
+        public async Task AddBookReference(Books b, Hold h)
         {
 
+            var v = await Context.Hold.FindAsync(h.Id);
+            if (v == null)
+            {
+                throw new ArgumentNullException(nameof(h));
+            }
+            await Task.Run(() => v.Bøger.Add(b));
+            await Context.SaveChangesAsync();
 
-            var c = await Context.Books
-                .Where(x => x.ISBN == ISBN)
-                .Include(v => v.Fag)
-                .ThenInclude(v => v.Name)
-                .ToListAsync();
-            await Task.Run(() => Context.Books.AddAsync()
-         
+            //var v=  await Context.Hold.FindAsync(h.Id);
+            // await Task.Run(() =>  v.Bøger.Add(b));
+            //await  Context.SaveChangesAsync();
+
+
+
+            //    var c = await Context.Books
+            //        .Where(x => x.ISBN == b.ISBN)
+            //        .Include(v => v.Fag)
+            //        .Include(x => x.Hold)
+            //        .FirstOrDefaultAsync(x => x.ISBN ==b.ISBN);
+            //    if (c == null)
+            //    {
+            //        throw new NullReferenceException(nameof(c));    
+            //    }
+            //    await Context.Books.AddAsync(c);
+            //    await Context.SaveChangesAsync();
+
+            //    return c;
+            //}
 
         }
-
-        //public Task UpdateUnderviser(Underviser u)
-        //{
-        //    //var UpdatedUnderviser= Context.Underviser.SelectMany( x => x.Id, (, u)
-        //    IEnumerable<Underviser> e = Context.Underviser.SelectMany(x => x.Id, v => v.Id,  ( x,v ) => new {x. v} )
-                
-            
-                
-
-
-
-
-
-
-        //}
     }
 }

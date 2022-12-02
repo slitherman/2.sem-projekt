@@ -22,6 +22,7 @@ namespace _2._sem_projekt_boglistesystemet.Models
         public int ISBN { get; set; }
         public Boghandler BookStore;
         public ICollection<Fag> Fag { get; set; }
+        public ICollection<Hold> Hold { get; set; }
 
         public Books(int isbn )
         {

@@ -13,25 +13,30 @@ namespace BoglisteSystemTestEnvironment
         public IUnderviser iu { get; set; }
 
 
-        //[SetUp]
-        //public void Setup()
-        //{
-
-        //}
+        [SetUp]
+        public void Setup()
+        {
+            
+        }
 
         [Test]
         public void AddBookReference_Test()
         {
-            //var book = new Books(434);
+            var book = new Books(434);
+            var hold = new Hold();
 
-            iu.AddBookReference(book);
-            //book.ISBN = 434;
-            //iu.AddBookReference(434);
 
-            Assert.That(book.ISBN, Is.EqualTo(434));
-            
-            
-           
+            iu.AddBookReference(book,hold);
+            iu.GetItemAsyncById(hold.Id).Wait();
+            Assert.AreEqual();   
+
+
+
+
+
+
+
+
         }
     }
 }
