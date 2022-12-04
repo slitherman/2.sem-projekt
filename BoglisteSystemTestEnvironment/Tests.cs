@@ -9,6 +9,8 @@ namespace BoglisteSystemTestEnvironment
     public class Tests
 
     {
+        private Books book;
+        private Hold hold;
 
         public IUnderviser iu { get; set; }
 
@@ -16,19 +18,19 @@ namespace BoglisteSystemTestEnvironment
         [SetUp]
         public void Setup()
         {
-            
+            book = new Books(434);
+            hold = new Hold();
         }
 
         [Test]
         public void AddBookReference_Test()
         {
-            var book = new Books(434);
-            var hold = new Hold();
+           
 
 
-            iu.AddBookReference(book,hold);
-            iu.GetItemAsyncById(hold.Id).Wait();
-            Assert.AreEqual();   
+          var result=  iu.AddBookReference(book,hold);
+            //iu.GetItemAsyncById(hold.Id).Wait();
+            Assert.IsTrue()  
 
 
 
