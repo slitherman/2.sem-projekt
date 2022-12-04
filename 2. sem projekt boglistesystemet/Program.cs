@@ -8,14 +8,21 @@ namespace _2._sem_projekt_boglistesystemet
     {
         public static void Main(string[] args)
         {
+           
             var builder = WebApplication.CreateBuilder(args);
 
-           
+            //Initializing the variable to null to indicate to the compiler that i plan on assigning it later.
+            //
+            IConfiguration cfg = null;
 
-            // Add services to the container.
-            // adding the database connectionstring
+
+
+        // Add services to the container.
+        // adding the database connectionstring
             builder.Services.AddRazorPages();
-            builder.Services.AddDbContext<BookstoreDbContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BookStoreDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            builder.Services.AddDbContext<BookstoreDbContext>(options => options.UseSqlServer(cfg.GetConnectionString("BookStoreConnection")));
+        
+
 
 
             var app = builder.Build();
