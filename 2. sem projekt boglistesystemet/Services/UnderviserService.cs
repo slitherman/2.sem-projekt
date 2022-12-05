@@ -10,10 +10,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
     {
         public BookstoreDbContext Context { get; set; }
 
-        public UnderviserService(BookstoreDbContext context) : base(context)
-        {
-            Context = context;
-        }
+     
         /// <summary>
         /// ???
         /// </summary>
