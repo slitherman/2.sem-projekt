@@ -97,6 +97,8 @@ namespace _2._sem_projekt_boglistesystemet.Services
 
             if (updated.IsPersistedEntity)
             {
+                //potential error might occur
+                //fix it later or something 
                 T existing =  await GContext.Set<T>().FindAsync(updated.Key);
                 if (existing != null)
                 {
@@ -107,7 +109,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
             return null;
             
           
-           
+   
         }
     }
 }
