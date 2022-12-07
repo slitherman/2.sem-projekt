@@ -10,10 +10,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
 
     {
 
-        public GenericService(BookstoreDbContext Context )
-        {
-            GContext = Context;
-        }
+    
       
         public BookstoreDbContext GContext { get; set; }
 
