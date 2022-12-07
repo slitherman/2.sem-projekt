@@ -15,5 +15,7 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [DataMember]
         public int SemesterId { get; set; }
         public ICollection<Hold> Hold { get; set; }
+        public Uddannelser Uddannelse { get; set; }
+        public Koordinator Koordinator { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [Key]
         [DataMember]
         public int UddannelseId { get; set; }
-        public ICollection<Semestre> semestres { get; set; }
+        public ICollection<Semestre> semestre { get; set; }
+        public Koordinator Koordinator { get; set; }
     }
 }

@@ -17,5 +17,6 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [DataMember]
         public string Name { get; set; }
         public ICollection<Underviser> Underviser { get; set; }
+        public Koordinator Koordinator { get; set; }
     }
 }

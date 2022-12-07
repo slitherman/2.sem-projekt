@@ -17,6 +17,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [DataMember]
         public int HoldId { get; set; }
         public ICollection<Semestre> semestre { get; set; }
+        public ICollection<Fag> fag { get; set; }
+        public Koordinator Koordinator { get; set; }
 
 
     }
