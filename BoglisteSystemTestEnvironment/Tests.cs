@@ -10,6 +10,8 @@ namespace BoglisteSystemTestEnvironment
     public class Tests
 
     {
+        private Books book;
+        private Hold hold;
 
         public IUnderviser iu { get; set; }
 
@@ -17,15 +19,14 @@ namespace BoglisteSystemTestEnvironment
         [SetUp]
         public void Setup()
         {
-            
+            book = new Books(434);
+            hold = new Hold();
         }
 
         [Test]
         public void AddBookReferenceAsync_Test()
         {
-            var us = new UnderviserService();
-           
-        var book = new Books(434);
+            var book = new Books(434);
             var hold = new Hold();
 
 
