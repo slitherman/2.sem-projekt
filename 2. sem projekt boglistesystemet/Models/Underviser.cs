@@ -22,5 +22,6 @@ namespace _2._sem_projekt_boglistesystemet.Models.BookData
         public int Id { get; set; }
         public ICollection<Fag> Fag { get; set; }
         public ICollection<Books> Books { get; set; }
+        public ICollection<Hold> Hold { get; set; }
     }
 }
