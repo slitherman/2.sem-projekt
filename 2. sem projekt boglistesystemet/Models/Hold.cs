@@ -19,6 +19,17 @@ namespace _2._sem_projekt_boglistesystemet.Models
         public ICollection<Semestre> semestre { get; set; }
         public ICollection<Fag> fag { get; set; }
         public Koordinator Koordinator { get; set; }
+        public ICollection<Books> Bøger { get; set; }
+        public Hold()
+        {
+
+        }
+        public Hold(string name, int id)
+        {
+            Name = name;
+            HoldId = id;
+
+        }
 
 
     }

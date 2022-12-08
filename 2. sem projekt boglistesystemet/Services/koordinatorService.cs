@@ -9,16 +9,16 @@ namespace _2._sem_projekt_boglistesystemet.Services
     public class koordinatorService : GenericService<Koordinator>, IKoordinator
     {
         public BookstoreDbContext Context { get; set; }
-        public Task AssignTeachers(Underviser u, Hold H)
-        {
-            //idk if this actually works 
-            var a = Context.Undervisere
-                .Include(x => x.Hold)
-                   .Include(x => x.Fag)
-                   .FirstOrDefault(c => c.UnderviserId == u.UnderviserId);
+        //public Task AssignTeachers(Underviser u, Hold H)
+        //{
+        //    //idk if this actually works 
+        //    var a = Context.Undervisere
+        //        .Include(x => x.Hold)
+        //           .Include(x => x.Fag)
+        //           .FirstOrDefault(c => c.UnderviserId == u.UnderviserId);
 
-            return Task.FromResult(a);
-        }
+        //    return Task.FromResult(a);
+        //}
         /// <summary>
         /// ????
         /// </summary>
@@ -28,7 +28,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
             Hold hold = new Hold();
             var u= new Underviser();
 
-          await Task.Run(() => GenericSerialize.JsonSerializer(AssignTeachers(u, hold).ToString()));
+          //await Task.Run(() => GenericSerialize.JsonSerializer(AssignTeachers(u, hold).ToString()));
         }
     }
 }

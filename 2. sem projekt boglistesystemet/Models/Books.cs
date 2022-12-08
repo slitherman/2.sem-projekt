@@ -30,6 +30,20 @@ namespace _2._sem_projekt_boglistesystemet.Models
         public int? ISBN { get; set; }
         public Boghandler BookStore;
 
+        public Books()
+        {
+
+        }
+        public Books(int id, string name, DateTime yr, string author, int isbn )
+        {
+            BogId = id;
+                Name=name;
+            Year = yr;  
+            Author = author;    
+            ISBN = isbn;    
+
+        }
+
       
     }
 }

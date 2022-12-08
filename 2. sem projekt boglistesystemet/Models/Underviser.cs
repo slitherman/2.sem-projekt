@@ -31,5 +31,16 @@ namespace _2._sem_projekt_boglistesystemet.Models.BookData
         public ICollection<Books> Books { get; set; }
         public ICollection<Hold> Hold { get; set; }
         public Koordinator Koordinator { get; set; }
+        public Underviser()
+        {
+
+        }
+        public Underviser(string firstname, string lastname, int id, string initials)
+        {
+            FirstName = firstname;
+            LastName = lastname;
+            Initials = initials;
+               UnderviserId = id;   
+        }
     }
 }
