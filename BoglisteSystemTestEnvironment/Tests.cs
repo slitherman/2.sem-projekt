@@ -12,14 +12,14 @@ namespace BoglisteSystemTestEnvironment
     public class Tests
 
     {
+
         BookstoreDbContext Context;
 
 
-
-        [SetUp]
+       [SetUp]
         public void Setup()
         {
-           
+          Context  = new BookstoreDbContext();
         }
 
         [Test]
@@ -28,6 +28,7 @@ namespace BoglisteSystemTestEnvironment
             Books b = new Books(1, "green book", new DateTime(199, 1, 1), "gadaffi", 121122112);
             Hold h = new Hold("hold 4", 22);
             UnderviserService underviserService = new UnderviserService();
+            underviserService.Context = Context;
             underviserService.AddBookReference(b, h);
 
           
@@ -39,11 +40,11 @@ namespace BoglisteSystemTestEnvironment
             Underviser u = new Underviser("jens", "andersen", 3, "JEAN");
             koordinatorService k = new koordinatorService();
             UnderviserService und = new UnderviserService();
-            
+            und.Context = Context;
 
             var expected = Context.Undervisere
                 .Include(x => x.Hold)
-                   .Include(x => x.Fag)
+                   .ThenInclude(V => V.fag)
                    .FirstOrDefault(c => c.UnderviserId == u.UnderviserId);
 
             await und.AssignTeachers(u, h);

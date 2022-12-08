@@ -18,6 +18,10 @@ namespace _2._sem_projekt_boglistesystemet.Models
         public virtual DbSet<Semestre> Semestre { get; set; }
         public virtual DbSet<Uddannelser> Uddannelser { get; set; }
         public virtual DbSet<Underviser> Undervisere { get; set; }
+        public BookstoreDbContext()
+        {
+
+        }
 
     }
 }

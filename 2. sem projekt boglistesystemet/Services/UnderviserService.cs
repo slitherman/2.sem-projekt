@@ -53,7 +53,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
             //idk if this actually works 
             var a = await Context.Undervisere
                 .Include(x => x.Hold)
-                   .Include(x => x.Fag)
+                   .ThenInclude(Z => Z.fag)
                    .FirstOrDefaultAsync(c => c.UnderviserId == u.UnderviserId);
 
             

@@ -3,12 +3,14 @@ using _2._sem_projekt_boglistesystemet.Interfaces;
 using _2._sem_projekt_boglistesystemet.Models;
 using _2._sem_projekt_boglistesystemet.Models.BookData;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace _2._sem_projekt_boglistesystemet.Services
 {
     public class koordinatorService : GenericService<Koordinator>, IKoordinator
     {
         public BookstoreDbContext Context { get; set; }
+        public IGenericInterface<Books> ig { get; set; }
         //public Task AssignTeachers(Underviser u, Hold H)
         //{
         //    //idk if this actually works 
@@ -27,8 +29,13 @@ namespace _2._sem_projekt_boglistesystemet.Services
         {
             Hold hold = new Hold();
             var u= new Underviser();
+            
+            ///are books references?
+            IEnumerable<Books> books = await ig.GetItemsAsync();
+            GenericSerialize.JsonSerializer(books);
 
-          //await Task.Run(() => GenericSerialize.JsonSerializer(AssignTeachers(u, hold).ToString()));
+
+            
         }
     }
 }

@@ -8,6 +8,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
     {
         public BookstoreDbContext Context { get; set; }
         public BoghandelService b { get; set; }
+        public IGenericInterface<Books> bb { get; set; }
         public string FileName = "BoghandelJson.json";
 
        /// <summary>
@@ -17,10 +18,10 @@ namespace _2._sem_projekt_boglistesystemet.Services
         public async Task<IEnumerable<Books>> ReturnReferenceList()
 
         {
-  
-            var a = await b.GetItemsAsync();
+            IEnumerable<Books> books = await bb.GetItemsAsync();
+
             GenericDeserialize.JsonDeserialize<Books>(FileName);
-            return (IEnumerable<Books>)a;
+            return books;
            
         }
     }
