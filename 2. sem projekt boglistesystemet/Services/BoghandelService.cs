@@ -18,10 +18,10 @@ namespace _2._sem_projekt_boglistesystemet.Services
         public async Task<IEnumerable<Books>> ReturnReferenceList()
 
         {
-            IEnumerable<Books> books = await bb.GetItemsAsync();
+           var a = Context.Bøger  = (Microsoft.EntityFrameworkCore.DbSet<Books>)await bb.GetItemsAsync();
 
             GenericDeserialize.JsonDeserialize<Books>(FileName);
-            return books;
+            return a;
            
         }
     }

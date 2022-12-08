@@ -36,6 +36,7 @@ namespace BoglisteSystemTestEnvironment
         [Test]
         public async Task AssignTeachers_Test()
         {
+
             Hold h = new Hold("hold 3", 22);
             Underviser u = new Underviser("jens", "andersen", 3, "JEAN");
             koordinatorService k = new koordinatorService();
@@ -72,8 +73,10 @@ namespace BoglisteSystemTestEnvironment
         [Test]
         public async Task ReturnBookRef_Test()
         {
-            IEnumerable<Books> books;
+           
             BoghandelService b = new BoghandelService();
+            b.Context = Context;
+            IEnumerable<Books> books = (IEnumerable<Books>)await b.GetItemsAsync();
             books = await b.ReturnReferenceList();
 
             foreach (var item in books)
