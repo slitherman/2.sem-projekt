@@ -1,4 +1,5 @@
 using _2._sem_projekt_boglistesystemet.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -20,8 +21,9 @@ namespace _2._sem_projekt_boglistesystemet
         // Add services to the container.
         // adding the database connectionstring
             builder.Services.AddRazorPages();
-            builder.Services.AddDbContext<BookstoreDbContext>(options => options.UseSqlServer(cfg.GetConnectionString("BookStoreConnection")));
-        
+            //builder.Services.AddDbContext<BookstoreDbContext>(options => options.UseSqlServer(cfg.GetConnectionString("DbConnection")));
+            builder.Services.AddDbContext<BookstoreDbContext>();
+
 
 
 

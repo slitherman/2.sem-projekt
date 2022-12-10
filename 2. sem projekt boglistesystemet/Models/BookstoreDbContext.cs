@@ -9,7 +9,15 @@ namespace _2._sem_projekt_boglistesystemet.Models
         {
 
         }
-       
+       protected override void OnConfiguring(DbContextOptionsBuilder opt)
+        {
+            opt.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BoglisteSystemDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+        //}
         public virtual DbSet<Boghandler> Boghandlere { get; set; }
         public virtual DbSet<Books> Bøger { get; set; }
         public virtual DbSet<Fag> Fag { get; set; }
