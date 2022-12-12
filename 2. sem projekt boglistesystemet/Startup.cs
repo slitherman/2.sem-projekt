@@ -5,7 +5,7 @@ namespace _2._sem_projekt_boglistesystemet
     public class Startup
     {
 
-        public void ConfigureServices(IServiceCollection services)
+        public virtual void ConfigureServices(IServiceCollection services)
        => services.AddDbContext<BookstoreDbContext>();
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

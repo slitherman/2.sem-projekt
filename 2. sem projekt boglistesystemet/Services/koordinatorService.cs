@@ -11,16 +11,20 @@ namespace _2._sem_projekt_boglistesystemet.Services
     {
         public BookstoreDbContext Context { get; set; }
         public IGenericInterface<Books> ig { get; set; }
-        //public Task AssignTeachers(Underviser u, Hold H)
-        //{
-        //    //idk if this actually works 
-        //    var a = Context.Undervisere
-        //        .Include(x => x.Hold)
-        //           .Include(x => x.Fag)
-        //           .FirstOrDefault(c => c.UnderviserId == u.UnderviserId);
+        public koordinatorService(BookstoreDbContext service) :base(service)
+        {
+            Context = service;
+        }
+        public Task AssignTeachers(Underviser u, Hold H)
+        {
+            //idk if this actually works 
+            var a = Context.Undervisere
+               .Include(x => x.Hold)
+                  .Include(x => x.Fag)
+                   .FirstOrDefault(c => c.UnderviserId == u.UnderviserId);
 
-        //    return Task.FromResult(a);
-        //}
+            return Task.FromResult(a);
+        }
         /// <summary>
         /// ????
         /// </summary>

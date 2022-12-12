@@ -19,6 +19,10 @@ namespace _2._sem_projekt_boglistesystemet.Services
 
         public BookstoreDbContext GContext { get; set; }
 
+        public GenericService(BookstoreDbContext service)
+        {
+            GContext = service;
+        }
         /// <summary>
         /// Does this actually make sense? ig ill find out later
         /// </summary>
@@ -67,7 +71,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
         public async Task<T> GetItemAsyncById(int id)
         {
           T item = await GContext.Set<T>().FindAsync(id);
-                if (GContext == null)
+                if (item == null)
             {
                 return null; 
 

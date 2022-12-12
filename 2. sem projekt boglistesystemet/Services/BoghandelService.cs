@@ -10,7 +10,10 @@ namespace _2._sem_projekt_boglistesystemet.Services
         public BoghandelService b { get; set; }
         public IGenericInterface<Books> bb { get; set; }
         public string FileName = "BoghandelJson.json";
-
+        public BoghandelService(BookstoreDbContext service) :base(service)
+        {
+            Context = service;
+        }
        /// <summary>
        /// ???
        /// </summary>

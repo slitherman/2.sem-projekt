@@ -8,7 +8,10 @@ namespace _2._sem_projekt_boglistesystemet.Services
     public class UnderviserService:GenericService<Underviser>,IUnderviser
     {
         public BookstoreDbContext Context { get; set; }
-
+        public UnderviserService(BookstoreDbContext service) :base(service)
+        {
+            Context = service;
+        }
 
         /// <summary>
         /// ???

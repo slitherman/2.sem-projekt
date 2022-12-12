@@ -27,7 +27,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
        
         [Range(0,1000)]
         [DataMember]
-        public int? ISBN { get; set; }
+        [Required]
+        public int ISBN { get; set; }
         public Boghandler BookStore;
         public ICollection<Hold> Hold { get; set; }
 
