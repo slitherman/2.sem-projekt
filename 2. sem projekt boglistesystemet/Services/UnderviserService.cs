@@ -22,12 +22,17 @@ namespace _2._sem_projekt_boglistesystemet.Services
         public async Task AddBookReference(Books b, Hold h)
         {
 
-            var v = await Context.Hold.FindAsync(h.HoldId);
-            if (v == null)
+            //var v = await Context.Hold.FindAsync(h.HoldId);
+            var d = await Context.Hold
+                .Include(x => x.Bøger)
+                .FirstOrDefaultAsync(x => x.HoldId == h.HoldId);
+
+                
+            if (d == null)
             {
                 throw new ArgumentNullException(nameof(h));
             }
-            await Task.Run(() => v.Bøger.Add(b));
+            await Task.Run(() => d.Bøger.Add(b));
             await Context.SaveChangesAsync();
 
             //var v=  await Context.Hold.FindAsync(h.Id);
@@ -54,6 +59,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
         public async Task AssignTeachers(Underviser u, Hold H)
         {
             //idk if this actually works 
+            //
             var a = await Context.Undervisere
                 .Include(x => x.Hold)
                    .ThenInclude(Z => Z.fag)

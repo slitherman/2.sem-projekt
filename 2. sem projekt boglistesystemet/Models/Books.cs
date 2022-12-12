@@ -19,7 +19,7 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [Required]
         [DataType(DataType.DateTime)]
         [DataMember]
-        public DateTime Year { get; set; }
+        public string Year { get; set; }
         [Required]
         [StringLength(50)]
         [DataMember]
@@ -36,7 +36,7 @@ namespace _2._sem_projekt_boglistesystemet.Models
         {
 
         }
-        public Books(int id, string name, DateTime yr, string author, int isbn )
+        public Books(int id, string name, string yr, string author, int isbn )
         {
             BogId = id;
                 Name=name;

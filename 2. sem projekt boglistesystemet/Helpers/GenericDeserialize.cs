@@ -10,6 +10,7 @@ namespace _2._sem_projekt_boglistesystemet.Helpers
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
             MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
             T obj = (T)ser.ReadObject(ms);
+            ms.Close();
             return obj;
         }
     }

@@ -43,7 +43,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
 
         /// <summary>
         /// The purpose of the method is to abtract filtering by makeing it generic.
-        /// </summary>
+        /// 
         /// <param name="expression"></param>
         /// <returns></returns>
         /// UNTESTED
@@ -62,7 +62,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
         }
         /// <summary>
         /// method may result in null
-        /// </summary>
+        /// added a null condition because...
         /// <param name="id"></param>
         /// <returns></returns>
         /// UNTESTED
@@ -70,7 +70,7 @@ namespace _2._sem_projekt_boglistesystemet.Services
 
         public async Task<T> GetItemAsyncById(int id)
         {
-          T item = await GContext.Set<T>().FindAsync(id);
+          T? item = await GContext.Set<T>().FindAsync(id);
                 if (item == null)
             {
                 return null; 
@@ -88,11 +88,13 @@ namespace _2._sem_projekt_boglistesystemet.Services
         /// not sure what i should return, set to null in the meeantime
         /// The interface is added, to access its properties in the method
         /// the GContext.Entry(existing).CurrentValues.SetValues(existing) method block is wrapped in a task.Run method to make it run asynchronously
+        /// trying to resolve the error: Type parameter on method is same as its outer type by changing the type
+        /// 
         /// <typeparam name="T"></typeparam>
         /// <param name="updated"></param>
         /// <returns></returns>
         /// UNTESTED
-        public async Task<T> UpdateItemAsync<T>(T updated) where T: class, IGenericInterface<T>
+        public async Task<T> UpdateItemAsync<T2>(T2 updated) where T2: class, IGenericInterface<T>
         {
             if (updated == null)
             {
@@ -103,13 +105,19 @@ namespace _2._sem_projekt_boglistesystemet.Services
             {
                 //potential error might occur
                 //fix it later or something 
-                T existing =  await GContext.Set<T>().FindAsync(updated.Key);
+                T? existing =  await GContext.Set<T>().FindAsync(updated.Key);
                 if (existing != null)
                 {
-                   await Task.Run(() => GContext.Entry(existing).CurrentValues.SetValues(existing));
+                  await Task.Run(() => GContext.Entry(existing).CurrentValues.SetValues(existing));
+                }
+                //trying to resolve the null warning on the variable existing 
+                if (existing is null)
+                {
+                    return null;
                 }
                 return existing;
             }
+            //theres nothing else to return 
             return null;
             
           

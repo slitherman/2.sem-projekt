@@ -7,8 +7,8 @@ namespace _2._sem_projekt_boglistesystemet.Services
     public class BoghandelService : GenericService<Boghandler>, IBoghandler
     {
         public BookstoreDbContext Context { get; set; }
-        public BoghandelService b { get; set; }
-        public IGenericInterface<Books> bb { get; set; }
+        private IGenericInterface<Books>? bb { get; set; }
+
         public string FileName = "BoghandelJson.json";
         public BoghandelService(BookstoreDbContext service) :base(service)
         {
@@ -21,6 +21,9 @@ namespace _2._sem_projekt_boglistesystemet.Services
         public async Task<IEnumerable<Books>> ReturnReferenceList()
 
         {
+            
+            BoghandelService b;
+
            var a = Context.Bøger  = (Microsoft.EntityFrameworkCore.DbSet<Books>)await bb.GetItemsAsync();
 
             GenericDeserialize.JsonDeserialize<Books>(FileName);

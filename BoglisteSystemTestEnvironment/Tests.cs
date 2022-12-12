@@ -19,7 +19,6 @@ namespace BoglisteSystemTestEnvironment
 
     {
 
-        BookstoreDbContext Context;
         BookstoreDbContext Service;
 
         //[SetUp]
@@ -33,63 +32,64 @@ namespace BoglisteSystemTestEnvironment
         //        });
         //    base.ConfigureServices(services);
         //}
-        //public async Task<BookstoreDbContext> GetContextAsync()
+       public async Task<BookstoreDbContext> GetContextAsync()
+       {
+           var options = new DbContextOptionsBuilder<BookstoreDbContext>()
+             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+           .Options;
+           var databaseContext= new BookstoreDbContext(options);
+            databaseContext.Database.EnsureCreated();
+
+           if (await databaseContext.Bøger.CountAsync() <0)
+           {
+                for (int i = 0; i < 10; i++)
+                {
+
+                    await databaseContext.AddAsync(
+
+                            new Books()
+                            {
+
+                                BogId = 33,
+                                Name = "test",
+                                Author = "TEST",
+                                Year = "1999",
+  
+                               ISBN = 32232544
+
+
+                            }); ;
+                    var hold = new Hold()
+                   {
+                       HoldId = 111,
+                        Name = "test",
+
+                   };
+
+
+               }
+               await databaseContext.SaveChangesAsync();   
+           }
+
+           return databaseContext;
+       }
+
+
+        //public List<Books> BookListGenerate(int count)
         //{
-        //    var options = new DbContextOptionsBuilder<BookstoreDbContext>()
-        //     .UseInMemoryDatabase(databaseName: "BogListeSystemDb")
-        //    .Options;
-        //    var databaseContext= new BookstoreDbContext(options);
-        //    databaseContext.Database.EnsureCreated();
-
-        //    if (await databaseContext.Bøger.CountAsync() <0)
-        //    {
-        //        for (int i = 0; i < 10; i++)
-        //        {
-
-        //            await databaseContext.AddAsync(
-
-        //                  new Books()
-        //                  {
-
-        //                      BogId = 33,
-        //                      Name = "test",
-        //                      Author = "TEST",
-        //                      Year = new DateTime(1999, 1, 1),
-        //                      ISBN = 32232544
+        //    var faker = new Faker<Books>()
+        //    .RuleFor(c => c.BogId, f => f.IndexGlobal)
+        //    .RuleFor(c => c.Author, f => f.Person.FullName)
+        //    .RuleFor(c => c.Year, f => f.Date.Past())
+        //    .RuleFor(c => c.Name, f => f.Lorem.Word())
+        //    .RuleFor(c => c.ISBN, f => f.UniqueIndex);
 
 
-        //                  });
-        //            var hold = new Hold()
-        //            {
-        //                HoldId = 111,
-        //                Name = "test",
-
-        //            };
-
-
-        //        }
-        //        await databaseContext.SaveChangesAsync();   
-        //    }
-
-        //    return databaseContext;
+        //    return faker.Generate(count);
         //}
-
-
-        public List<Books> BookListGenerate(int count)
-        {
-            var faker = new Faker<Books>()
-            .RuleFor(c => c.BogId, f => f.IndexGlobal)
-            .RuleFor(c => c.Author, f => f.Person.FullName)
-            .RuleFor(c => c.Year, f => f.Date.Past())
-            .RuleFor(c => c.Name, f => f.Lorem.Word())
-            .RuleFor(c => c.ISBN, f => f.UniqueIndex);
-
-
-            return faker.Generate(count);
-        }
         public void Setup()
         {
-          Context  = new BookstoreDbContext();
+          Service  = new BookstoreDbContext();
         }
         [Test]
         public void add_book_reference_test()
@@ -121,32 +121,56 @@ namespace BoglisteSystemTestEnvironment
         //    Assert.IsTrue(true);
         //}
         [Test]
+        public async Task AddHold()
+        {
+            BookstoreDbContext bdd = new BookstoreDbContext();
+            GenericService<Koordinator> koor = new koordinatorService(bdd);
+          var a=  await  koor.GetItemsAsync();
+
+            Hold h = new Hold()
+            {
+                Koordinator = a.First(),
+
+                Name = "HOLD 1"
+            };
+
+           
+            GenericService<Hold> hh = new GenericService<Hold>(bdd);
+            var v = await hh.GetItemsAsync();
+            await hh.AddItemAsync(h);
+            
+            var vv = await hh.GetItemsAsync();
+            
+
+            Assert.AreEqual(v.Count() + 1, vv.Count(),"counts does not match");
+        }
+        [Test]
         public async Task AddBookRef_Test()
         {
             var book = new Books()
             {
-                BogId = 33,
+             
                 Name = "test",
                 Author = "TEST",
-                Year = new DateTime(1999, 1, 1),
+                Year = "1999",
                 ISBN = 32232544
             };
             var hold = new Hold()
             {
-                HoldId = 111,
+                HoldId = 2007,
                 Name = "test",
             };
+            BookstoreDbContext dbb = new BookstoreDbContext();
 
-            Books b = new Books(1, "green book", new DateTime(199, 1, 1), "gadaffi", 121122112);
-            Hold h = new Hold("hold 4", 22);
-            UnderviserService underviserService = new UnderviserService(Service);
-            underviserService.Context = Context;
-        await  underviserService.AddBookReference(b,h);
+            UnderviserService underviserService = new UnderviserService(dbb);
+            
+        await  underviserService.AddBookReference(book,hold);
 
             //await Context.SaveChangesAsync();   
             //await underviserService.GetItemAsyncById(b.BogId);
 
-            Assert.IsTrue(true);
+            //Assert.IsTrue(true);
+            Assert.IsNotNull(underviserService);
 
 
           
@@ -160,12 +184,12 @@ namespace BoglisteSystemTestEnvironment
 
             koordinatorService k = new koordinatorService(Service);
             UnderviserService und = new UnderviserService(Service);
-            und.Context = Context;
+            und.Context = Service;
 
-            var expected = Context.Undervisere
+            var expected = await Service.Undervisere
                 .Include(x => x.Hold)
                    .ThenInclude(V => V.fag)
-                   .FirstOrDefault(c => c.UnderviserId == u.UnderviserId);
+                   .FirstOrDefaultAsync(c => c.UnderviserId == u.UnderviserId);
             await und.AddItemAsync(u);
             await und.AssignTeachers(u, h);
             Underviser underviser = und.GetItemAsyncById(u.UnderviserId).Result;
@@ -177,11 +201,14 @@ namespace BoglisteSystemTestEnvironment
         [Test]
         public async Task SendBookRef_Test()
         {
-            Hold hold = new Hold();
+            Books b = new Books(1, "green book", "1999" , "gadaffi", 121122112);
+            Hold h = new Hold("hold 4", 22);
             Underviser u = new Underviser();
             koordinatorService k = new koordinatorService(Service);
-
+            UnderviserService Us = new UnderviserService(Service);
+            await Us.AddBookReference(b, h);
             await k.SendListOfReferences();
+            Assert.IsTrue(true);
           
 
 
@@ -195,7 +222,7 @@ namespace BoglisteSystemTestEnvironment
         {
            
             BoghandelService b = new BoghandelService(Service);
-            b.Context = Context;
+            b.Context = Service;
             IEnumerable<Books> books = (IEnumerable<Books>)await b.GetItemsAsync();
             books = await b.ReturnReferenceList();
 
