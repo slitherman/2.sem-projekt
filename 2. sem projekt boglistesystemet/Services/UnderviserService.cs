@@ -57,15 +57,19 @@ namespace _2._sem_projekt_boglistesystemet.Services
             //}
         }
         public async Task AssignTeachers(Underviser u, Hold H)
+
         {
+            Koordinator kkk = new Koordinator();
             //idk if this actually works 
             //
             var a = await Context.Undervisere
+                  //.Where(z => z.UnderviserId == u.UnderviserId)
                 .Include(x => x.Hold)
                    .ThenInclude(Z => Z.fag)
-                   .FirstOrDefaultAsync(c => c.UnderviserId == u.UnderviserId);
+                   .ThenInclude(x=> x.Koordinator)
+                            .FirstOrDefaultAsync(c => c.Koordinator.KoordinatorId == kkk.KoordinatorId);
 
-            
+
         }
     }
 }

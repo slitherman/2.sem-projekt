@@ -36,9 +36,9 @@ namespace _2._sem_projekt_boglistesystemet.Models
         {
 
         }
-        public Books(int id, string name, string yr, string author, int isbn )
+        public Books(string name, string yr, string author, int isbn )
         {
-            BogId = id;
+            
                 Name=name;
             Year = yr;  
             Author = author;    

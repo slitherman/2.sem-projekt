@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
 namespace BoglisteSystemTestEnvironment
@@ -121,17 +122,23 @@ namespace BoglisteSystemTestEnvironment
         //    Assert.IsTrue(true);
         //}
         [Test]
+        // model prop ids are null
         public async Task AddHold()
         {
             BookstoreDbContext bdd = new BookstoreDbContext();
             GenericService<Koordinator> koor = new koordinatorService(bdd);
-          var a=  await  koor.GetItemsAsync();
-
+            GenericService<Underviser> uid = new UnderviserService(bdd);
+            var a=  await  koor.GetItemsAsync();
+            var b = await uid.GetItemsAsync();
             Hold h = new Hold()
             {
                 Koordinator = a.First(),
-
-                Name = "HOLD 1"
+              
+                
+                
+                Name="HoldTest",
+                
+                
             };
 
            
@@ -145,20 +152,22 @@ namespace BoglisteSystemTestEnvironment
             Assert.AreEqual(v.Count() + 1, vv.Count(),"counts does not match");
         }
         [Test]
+        // model prop ids are null
         public async Task AddBookRef_Test()
         {
+            
             var book = new Books()
             {
              
-                Name = "test",
-                Author = "TEST",
+                Name = "test3",
+                Author = "TEST3",
                 Year = "1999",
                 ISBN = 32232544
             };
             var hold = new Hold()
             {
                 HoldId = 2007,
-                Name = "test",
+                Name = "test3",
             };
             BookstoreDbContext dbb = new BookstoreDbContext();
 
@@ -166,10 +175,10 @@ namespace BoglisteSystemTestEnvironment
             
         await  underviserService.AddBookReference(book,hold);
 
-            //await Context.SaveChangesAsync();   
-            //await underviserService.GetItemAsyncById(b.BogId);
+           //await Context.SaveChangesAsync();   
+           await underviserService.GetItemAsyncById(book.BogId);
 
-            //Assert.IsTrue(true);
+            Assert.IsTrue(true);
             Assert.IsNotNull(underviserService);
 
 
@@ -179,36 +188,62 @@ namespace BoglisteSystemTestEnvironment
         public async Task AssignTeachers_Test()
         {
 
-            Hold h = new Hold("hold 3", 22);
-            Underviser u = new Underviser("p", "p", 2, "JEAN");
 
-            koordinatorService k = new koordinatorService(Service);
-            UnderviserService und = new UnderviserService(Service);
-            und.Context = Service;
+            BookstoreDbContext newService = new BookstoreDbContext(); 
+            koordinatorService k = new koordinatorService(newService);
+            UnderviserService und = new UnderviserService(newService);
+            Koordinator kkk = new Koordinator();
 
-            var expected = await Service.Undervisere
+            var a = await und.GetItemsAsync();
+            var b = await k.GetItemsAsync();
+
+            Underviser u = new Underviser()
+            {
+                FirstName = " TestU1",
+                LastName = "TestU1",
+                Initials = "TestU1",
+           
+            };
+
+            var expected = await k.Context.Undervisere
                 .Include(x => x.Hold)
                    .ThenInclude(V => V.fag)
+                   .ThenInclude(x => x.Koordinator)
                    .FirstOrDefaultAsync(c => c.UnderviserId == u.UnderviserId);
+
             await und.AddItemAsync(u);
-            await und.AssignTeachers(u, h);
+            //await und.AssignTeachers(u, h);
             Underviser underviser = und.GetItemAsyncById(u.UnderviserId).Result;
             Assert.That(underviser, Is.EqualTo(expected));  
-
-            
 
         }
         [Test]
         public async Task SendBookRef_Test()
         {
-            Books b = new Books(1, "green book", "1999" , "gadaffi", 121122112);
-            Hold h = new Hold("hold 4", 22);
+
             Underviser u = new Underviser();
-            koordinatorService k = new koordinatorService(Service);
-            UnderviserService Us = new UnderviserService(Service);
+            BookstoreDbContext newService = new BookstoreDbContext();
+            koordinatorService k = new koordinatorService(newService);
+            UnderviserService Us = new UnderviserService(newService);
+            GenericService<Hold> newh = new GenericService<Hold>(newService);
+            GenericService<Books> newb = new GenericService<Books>(newService);
+            var a = await newh.GetItemsAsync();
+            Books b = new Books( "green book", "1999" , "gadaffi", 3232213);
+            Hold h = new Hold()
+            {
+                Name = "testhold2",
+                HoldId = a.First().HoldId,
+
+
+
+            };
+           
+            var bookservice= await newb.GetItemAsyncById(h.HoldId);
+
             await Us.AddBookReference(b, h);
             await k.SendListOfReferences();
             Assert.IsTrue(true);
+            Assert.IsNotNull(bookservice);
           
 
 
@@ -220,9 +255,9 @@ namespace BoglisteSystemTestEnvironment
         //testing bookref collection
         public async Task ReturnBookRef_Test()
         {
-           
-            BoghandelService b = new BoghandelService(Service);
-            b.Context = Service;
+            BookstoreDbContext newService = new BookstoreDbContext();
+            BoghandelService b = new BoghandelService(newService);
+            
             IEnumerable<Books> books = (IEnumerable<Books>)await b.GetItemsAsync();
             books = await b.ReturnReferenceList();
 
