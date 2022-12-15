@@ -241,8 +241,13 @@ namespace BoglisteSystemTestEnvironment
             IEnumerable<Books> dsd = await newb.GetItemsAsync();
 
 
+            Books boo = new Books()
+            {
 
-            Books books = dsd.First();
+              
+
+            }
+            //Books books = dsd.First();
             
             Hold h = new Hold()
             {
@@ -257,7 +262,7 @@ namespace BoglisteSystemTestEnvironment
           await  newh.AddItemAsync(h);
             var bookservice = newb.GetItemAsyncById(h.HoldId).Result;
 
-            await Us.AddBookReference(books, h);
+            await Us.AddBookReference(, h);
             await k.SendListOfReferences();
             Assert.IsTrue(true);
             Assert.IsNotNull(bookservice);
@@ -271,10 +276,10 @@ namespace BoglisteSystemTestEnvironment
             BookstoreDbContext newService = new BookstoreDbContext();
             BoghandelService b = new BoghandelService(newService);
             
-            IEnumerable<Books> books = (IEnumerable<Books>)await b.GetItemsAsync();
-            books = await b.ReturnReferenceList();
+             var  beb = await b.GetItemsAsync();
+            beb = (IEnumerable<Boghandler>)await b.ReturnReferenceList();
 
-            foreach (var item in books)
+            foreach (var item in beb)
             {
 
             }
