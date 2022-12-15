@@ -35,11 +35,12 @@ namespace _2._sem_projekt_boglistesystemet.Models.BookData
         {
 
         }
-        public Underviser(string firstname, string lastname, string initials)
+        public Underviser(string firstname, string lastname, string initials, Koordinator k)
         {
             FirstName = firstname;
             LastName = lastname;
             Initials = initials;
+            Koordinator= k; 
            
         }
     }

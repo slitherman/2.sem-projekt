@@ -7,12 +7,14 @@ using Bogus;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Threading.Channels;
 
 namespace BoglisteSystemTestEnvironment
 {
@@ -185,10 +187,12 @@ namespace BoglisteSystemTestEnvironment
           
         }
         [Test]
+        ///error occcurs due to fk conflict on"FK_Undervisere_Koordinatorer_KoordinatorId"
+        //exceptions:
+        //Microsoft.EntityFrameworkCore.DbUpdateException : An error occurred while saving the entity changes.See the inner exception for details.
+        //Microsoft.Data.SqlClient.SqlException : The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Undervisere_Koordinatorer_KoordinatorId". The conflict occurred in database "BoglisteSystemDb", table "dbo.Koordinatorer", column 'KoordinatorId'.
         public async Task AssignTeachers_Test()
         {
-
-
             BookstoreDbContext newService = new BookstoreDbContext(); 
             koordinatorService k = new koordinatorService(newService);
             UnderviserService und = new UnderviserService(newService);
@@ -202,19 +206,23 @@ namespace BoglisteSystemTestEnvironment
                 FirstName = " TestU1",
                 LastName = "TestU1",
                 Initials = "TestU1",
+                Koordinator= b.First()
            
             };
 
-            var expected = await k.Context.Undervisere
+            var expected = k.Context.Undervisere
                 .Include(x => x.Hold)
                    .ThenInclude(V => V.fag)
-                   .ThenInclude(x => x.Koordinator)
-                   .FirstOrDefaultAsync(c => c.UnderviserId == u.UnderviserId);
+                .Include(x => x.Koordinator)
+                  .FirstOrDefaultAsync(c => c.UnderviserId == u.UnderviserId);
 
             await und.AddItemAsync(u);
             //await und.AssignTeachers(u, h);
             Underviser underviser = und.GetItemAsyncById(u.UnderviserId).Result;
-            Assert.That(underviser, Is.EqualTo(expected));  
+            var hent =  await und.GetItemsAsync();
+            //Assert.That(underviser, Is.EqualTo(expected));  
+            Assert.AreEqual(a.Count()+1, hent.Count());
+           
 
         }
         [Test]
@@ -225,30 +233,35 @@ namespace BoglisteSystemTestEnvironment
             BookstoreDbContext newService = new BookstoreDbContext();
             koordinatorService k = new koordinatorService(newService);
             UnderviserService Us = new UnderviserService(newService);
+            GenericService<Books> gb = new GenericService<Books>(newService);
             GenericService<Hold> newh = new GenericService<Hold>(newService);
             GenericService<Books> newb = new GenericService<Books>(newService);
             var a = await newh.GetItemsAsync();
-            Books b = new Books( "green book", "1999" , "gadaffi", 3232213);
+            var bb = await k.GetItemsAsync();
+            IEnumerable<Books> dsd = await newb.GetItemsAsync();
+
+
+
+            Books books = dsd.First();
+            
             Hold h = new Hold()
             {
                 Name = "testhold2",
-                HoldId = a.First().HoldId,
-
-
+                //HoldId = 5343,
+                Koordinator = bb.Last(),
+                Bøger = new List<Books>(),
+      
 
             };
-           
-            var bookservice= await newb.GetItemAsyncById(h.HoldId);
 
-            await Us.AddBookReference(b, h);
+          await  newh.AddItemAsync(h);
+            var bookservice = newb.GetItemAsyncById(h.HoldId).Result;
+
+            await Us.AddBookReference(books, h);
             await k.SendListOfReferences();
             Assert.IsTrue(true);
             Assert.IsNotNull(bookservice);
-          
-
-
-
-
+         
 
         }
         [Test]
