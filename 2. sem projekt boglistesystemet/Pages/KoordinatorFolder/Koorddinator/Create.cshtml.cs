@@ -12,7 +12,7 @@ namespace _2._sem_projekt_boglistesystemet.Pages.KoordinatorFolder.Koordinatorer
         public IKoordinator Ik { get; set; }
         public CreateModel(IKoordinator ik)
         {
-         
+
             Ik = ik;
         }
 
@@ -23,7 +23,7 @@ namespace _2._sem_projekt_boglistesystemet.Pages.KoordinatorFolder.Koordinatorer
         }
         public async Task<IActionResult> OnPost()
         {
-            if(!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 Page();
             }
@@ -32,4 +32,5 @@ namespace _2._sem_projekt_boglistesystemet.Pages.KoordinatorFolder.Koordinatorer
         }
 
     }
+}
 

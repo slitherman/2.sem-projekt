@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using _2._sem_projekt_boglistesystemet.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace _2._sem_projekt_boglistesystemet.Models
@@ -8,7 +9,7 @@ namespace _2._sem_projekt_boglistesystemet.Models
     {
         [Required]
         [MinLength(1), MaxLength(30)]
-        [Range(0,1000)]
+        [Range(0, 1000)]
         [Key]
         [DataMember]
         public int BogId { get; set; }
@@ -24,8 +25,8 @@ namespace _2._sem_projekt_boglistesystemet.Models
         [StringLength(50)]
         [DataMember]
         public string Author { get; set; }
-       
-        [Range(0,1000)]
+
+        [Range(0, 1000)]
         [DataMember]
         [Required]
         public int ISBN { get; set; }
@@ -36,16 +37,16 @@ namespace _2._sem_projekt_boglistesystemet.Models
         {
 
         }
-        public Books(string name, string yr, string author, int isbn )
+        public Books(string name, string yr, string author, int isbn)
         {
-            
-                Name=name;
-            Year = yr;  
-            Author = author;    
-            ISBN = isbn;    
+
+            Name = name;
+            Year = yr;
+            Author = author;
+            ISBN = isbn;
 
         }
 
-      
+        
     }
 }

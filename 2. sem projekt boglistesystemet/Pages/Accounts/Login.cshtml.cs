@@ -1,8 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Net;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
 
-namespace _2._sem_projekt_boglistesystemet.Pages.Accounts
+
+namespace _2._sem_projekt_boglistesystemet.Pages.Shared
 {
     public class LoginModel : PageModel
     {
@@ -21,9 +29,9 @@ namespace _2._sem_projekt_boglistesystemet.Pages.Accounts
             if (Login.UserName == "admin" && Login.Password == "password")
             {
 
+             
 
-
-
+                
                 return RedirectToPage("/Crud/Underviserindex");
 
             }
@@ -50,7 +58,6 @@ namespace _2._sem_projekt_boglistesystemet.Pages.Accounts
         public string UserName { get; set; }
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
     }
 }
-

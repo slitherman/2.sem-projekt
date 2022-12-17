@@ -3,27 +3,28 @@ using _2._sem_projekt_boglistesystemet.Models;
 using _2._sem_projekt_boglistesystemet.Models.BookData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace _2._sem_projekt_boglistesystemet.Pages.UnderviserFolder.Bøger
 {
     public class CreateModel : PageModel
     {
         [BindProperty]
-        public Books boo{ get; set; }
-        public IGenericInterface<Books> Ib{ get; set; }
+        public Books boo { get; set; }
+        public IGenericInterface<Books> Ib { get; set; }
 
         public CreateModel(IGenericInterface<Books> ib)
         {
-         Ib= ib;
+            Ib = ib;
         }
 
         public async Task<IActionResult> OnGet(Books b)
         {
-            boo.BogId = b.BogId;   
+            boo.BogId = b.BogId;
             return Page();
 
         }
-        public async Task<IActionResult> OnPost() 
+        public async Task<IActionResult> OnPost()
         {
 
             if (!ModelState.IsValid)
@@ -31,7 +32,8 @@ namespace _2._sem_projekt_boglistesystemet.Pages.UnderviserFolder.Bøger
                 return Page();
             }
             await Ib.AddItemAsync(boo);
-           return RedirectToAction("Get");
+            return RedirectToAction("Get");
         }
     }
 }
+

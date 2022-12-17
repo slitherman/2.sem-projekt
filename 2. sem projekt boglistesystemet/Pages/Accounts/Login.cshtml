@@ -1,4 +1,74 @@
 ﻿@page
-@model _2._sem_projekt_boglistesystemet.Pages.Accounts.LoginModel
+@model _2._sem_projekt_boglistesystemet.Pages.Shared.LoginModel
 @{
 }
+
+<div class="text-center ">
+    <br />
+    <br />
+
+    <h1 style="align-content:center; font-family:'Franklin Gothic';font-size:xx-large;border-bottom:solid black; padding-top:5px; color:red;">Manglende Adgang, Log venligst ind For At Forsætte!</h1>
+
+    <br />
+    <br />
+
+
+</div>
+
+
+<div class="container border bg-light" style="padding: 15px">
+    <form method="post">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        @*//UserName*@
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Login.UserName"></label>
+            </div>
+
+            <div class="col-5">
+                <input type="text" asp-for="Login.UserName" class="form-control" />
+            </div>
+
+            <span class="text-danger" asp-validation-for="Login.UserName"></span>
+
+        </div>
+
+        @*//PassWord*@
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Login.Password"></label>
+            </div>
+
+            <div class="col-5">
+                <input type="password" asp-for="Login.Password" class="form-control" />
+            </div>
+
+            <span class="text-danger" asp-validation-for="Login.Password"></span>
+
+        </div>
+
+        @*//login Button*@
+
+        <div class="form-group row">
+            <div class="col-2">
+                <input type="submit" class="btn btn-primary" value="Login" />
+            </div>
+
+            <div class="col-5">
+            </div>
+        </div>
+    </form>
+
+
+
+</div>
+
+<br />
+
+
+<h6 style="font-family:'Times New Roman', Times, serif;color:darkred;">Need Help? Click The Button Below To Go TO Support!</h6>
+<br />
+<a href="https://localhost:7135/Support" class="btn btn btn-outline-danger btn-solid">Gå Til Support</a>
+<br />

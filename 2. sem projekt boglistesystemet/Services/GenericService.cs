@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 
 namespace _2._sem_projekt_boglistesystemet.Services
 {
+
+
     public class GenericService<T> : IGenericInterface<T> where T : class, new()
 
     {
@@ -38,6 +40,8 @@ namespace _2._sem_projekt_boglistesystemet.Services
 
 
         }
+
+        
 
 
 
