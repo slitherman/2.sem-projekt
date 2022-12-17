@@ -27,11 +27,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Boghandel\" />
-    <Folder Include="Pages\KoordinatorFolder\Fag\" />
-    <Folder Include="Pages\KoordinatorFolder\KoordinatorHold\" />
-    <Folder Include="Pages\KoordinatorFolder\Semestre\" />
-  </ItemGroup>
-
 </Project>

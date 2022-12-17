@@ -10,6 +10,7 @@ namespace _2._sem_projekt_boglistesystemet.Pages.KoordinatorFolder.Koordinatorer
     {
         [BindProperty(SupportsGet = true)] 
         public IEnumerable<Koordinator> Koordikators { get; set; }
+        [BindProperty]
         public Koordinator Koordinator { get; set; }
         public IKoordinator Ik { get; set; }
 

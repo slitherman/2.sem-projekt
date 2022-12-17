@@ -1,3 +1,5 @@
+using _2._sem_projekt_boglistesystemet.Interfaces;
+using _2._sem_projekt_boglistesystemet.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -5,8 +7,23 @@ namespace _2._sem_projekt_boglistesystemet.Pages.KoordinatorFolder.SemestreKoord
 {
     public class GetSemModel : PageModel
     {
-        public void OnGet()
+        [BindProperty(SupportsGet =true)]
+        public IEnumerable<Semestre> SemCollection { get; set; }
+
+        [BindProperty]
+        public Semestre Sem { get; set; }
+        public IGenericInterface<Semestre>  Isem { get; set; }
+
+        public GetSemModel( IGenericInterface<Semestre> isem)
         {
+          
+            Isem = isem;
+        }
+
+        public async Task<IActionResult> OnGet()
+        {
+            SemCollection = await Isem.GetItemsAsync();
+            return Page();
         }
     }
 }
