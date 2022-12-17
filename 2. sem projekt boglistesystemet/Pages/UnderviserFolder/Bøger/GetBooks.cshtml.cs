@@ -8,8 +8,11 @@ namespace _2._sem_projekt_boglistesystemet.Pages.UnderviserFolder.Bøger
     public class GetBooksModel : PageModel
     {
         [BindProperty(SupportsGet = true)]
-        public Books books { get; set; }
+      
         public IEnumerable<Books> BookCollection { get; set; }
+
+        [BindProperty]
+        public Books books { get; set; }
         public IGenericInterface<Books> Ib { get; set; }
         public GetBooksModel( IGenericInterface<Books> ib)
         {

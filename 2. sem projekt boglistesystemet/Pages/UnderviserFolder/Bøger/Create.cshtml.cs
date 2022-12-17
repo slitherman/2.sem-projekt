@@ -9,7 +9,7 @@ namespace _2._sem_projekt_boglistesystemet.Pages.UnderviserFolder.Bøger
     public class CreateModel : PageModel
     {
         [BindProperty]
-        public Books boo{ get; set; }
+        public Books boo { get; set; } = new Books();
         public IGenericInterface<Books> Ib{ get; set; }
 
         public CreateModel(IGenericInterface<Books> ib)

@@ -9,9 +9,9 @@ namespace _2._sem_projekt_boglistesystemet.Pages.Boghandel
     {
         [BindProperty]
         public Boghandler boghandler { get; set; }
-        public IGenericInterface<Boghandler> Ib { get; set; }
+        public IBoghandler Ib { get; set; }
 
-        public UpdateModel( IGenericInterface<Boghandler> ib)
+        public UpdateModel( IBoghandler ib)
         {
           
             Ib = ib;

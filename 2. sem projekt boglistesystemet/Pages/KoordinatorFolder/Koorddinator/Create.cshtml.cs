@@ -8,7 +8,7 @@ namespace _2._sem_projekt_boglistesystemet.Pages.KoordinatorFolder.Koordinatorer
     public class CreateModel : PageModel
     {
         [BindProperty]
-        public Koordinator Koordinator { get; set; }
+        public Koordinator Koordinator { get; set; } = new Koordinator();
         public IKoordinator Ik { get; set; }
         public CreateModel(IKoordinator ik)
         {
@@ -31,5 +31,7 @@ namespace _2._sem_projekt_boglistesystemet.Pages.KoordinatorFolder.Koordinatorer
             return RedirectToPage("GetKoordinator");
         }
 
+
     }
+}
 

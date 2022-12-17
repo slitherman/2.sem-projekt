@@ -1,4 +1,6 @@
+using _2._sem_projekt_boglistesystemet.Interfaces;
 using _2._sem_projekt_boglistesystemet.Models;
+using _2._sem_projekt_boglistesystemet.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +25,9 @@ namespace _2._sem_projekt_boglistesystemet
             builder.Services.AddRazorPages();
             //builder.Services.AddDbContext<BookstoreDbContext>(options => options.UseSqlServer(cfg.GetConnectionString("DbConnection")));
             builder.Services.AddDbContext<BookstoreDbContext>();
+            builder.Services.AddTransient<IKoordinator,koordinatorService>();
+            builder.Services.AddTransient<IUnderviser, UnderviserService>();
+            builder.Services.AddTransient<IBoghandler, BoghandelService>();
 
 
 

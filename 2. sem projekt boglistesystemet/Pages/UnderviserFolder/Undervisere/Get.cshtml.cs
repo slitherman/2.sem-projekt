@@ -9,11 +9,12 @@ namespace _2._sem_projekt_boglistesystemet.Pages.UnderviserFolder.Undervisere
     {
         [BindProperty(SupportsGet = true)]
 
-        public Underviser  underviser { get; set; }
         public int Amount { get; set; }
         public IEnumerable<Underviser> undervisers { get; set; }
 
         [BindProperty]
+
+        public Underviser underviser { get; set; }
         public IUnderviser iu { get; set; }
         public GetModel(IUnderviser iu)
         {
